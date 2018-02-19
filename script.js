@@ -13,7 +13,6 @@ $('.idea_section').on('click', '.upArrow', upVote);
 $('.idea_section').on('click', '.downArrow', downVote);
 $("input[type=submit]").attr('disabled','disabled');
 $("form").change(enable);
- 
 
 if(ideas) {
   window.onload = oldIdeas();
@@ -21,30 +20,23 @@ if(ideas) {
   ideas = [];
 }
 
-ideaBoxContainer.addEventListener('input', function(event) {
-  saveIdeaUpdates(event);
-});
-
-list.addEventListener('input', function(event) {
-  saveIdeaUpdates(event);
-});
-
 // clone box with the user's input
 form.addEventListener('submit',function(e) {
-  enable()
   e.preventDefault();
-
+  enable()
   cloneIdea();
   form.reset();
 });
 
 function enable() {
-  if ($('bodyInput') == " " && $('titleInput') == "") {
-    $("input[type=submit]").attr('disabled','disabled');
+  if ($('body-input') === " " && $('title-input') === "") {
+    $("input[type=submit]").attr('disabled', true);
   } else {
     $("input[type=submit]").removeAttr('disabled');
   }
 }
+// why did you use bracket notation and not he class on .saveButton?
+
 
 function oldIdeas() {
   for(i = 0; i < ideas.length; i++) {
@@ -52,26 +44,12 @@ function oldIdeas() {
   } 
 }
 
-function random(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-function loop() {
-  var id = '';
-  for(i = 0; i < 8; i++ ) {
-  var randomNum = random(65, 90);
-  var letter = String.fromCharCode(randomNum);
-  id = letter + id;
-  }
-  return id;
-}
+// formCharCode is turning our randoms number into a 8 letter string.
 
 function cloneIdea() {
   var boxCopy = boxTemplate.cloneNode(true);
   var ideaObject = ideaStorage();
-  boxCopy.id = ideaObject.id;
+  boxCopy.id = Date.now();
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   title.innerText = ideaObject.title;
@@ -79,31 +57,36 @@ function cloneIdea() {
   list.prepend(boxCopy);
   $("input[type=submit]").attr('disabled','disabled');
 }
+// create clone of idea card. create the object using ideaStorage().
 
 function createOldIdea(idea) {
   var boxCopy = boxTemplate.cloneNode(true);
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   boxCopy.id = idea.id;
-  list.prepend(boxCopy);
   title.innerText = idea.title;
   body.innerText = idea.body;
+  list.prepend(boxCopy);
 }
+// what is the diff between the functionality of cloneIdea and createOldIdea/
 
 function ideaStorage() {
   var idea = {};
 
-  idea.title = document.querySelector('.titleInput').value;
-  idea.body = document.querySelector('.bodyInput').value;
-  idea.id = loop();
+  idea.title = document.querySelector('.title-input').value;
+  idea.body = document.querySelector('.body-input').value;
+  idea.id = Date.now();
   ideas.push(idea);
   var ideaString = JSON.stringify(ideas);
   localStorage.setItem('idea', ideaString);
   return idea;
 }
+// creating each individual storage itme in the giant array and 
+ // pushing them into the array of ideas on creation. line 20.
+  // passing idea into create old idea to prened on page.
 
 function deleteIdea(ev) {
-  var box = ev.target.closest('.newIdeas');
+  var box = ev.target.closest('.new-ideas');
   var id = box.id;
   list.removeChild(box);
   ideas = ideas.filter(function(el) {
@@ -114,7 +97,7 @@ function deleteIdea(ev) {
 }
 
 function upVote() {
-  var quality = $(this).parent().find('.qualType').text();
+  var quality = $(this).parent().find('.qual-type').text();
 
   if(quality === 'swill') {
     $(this).parent().find('.qualType').text('plausible');
@@ -124,17 +107,18 @@ function upVote() {
 }
 
 function downVote() {
-  var quality = $(this).parent().find('.qualType').text();
+  var quality = $(this).parent().find('.qual-type').text();
 
   if(quality === 'genius') {
-    $(this).parent().find('.qualType').text('plausible');
+    $(this).parent().find('.qual-type').text('plausible');
   } else {
-    $(this).parent().find('.qualType').text('swill');
+    $(this).parent().find('.qual-type').text('swill');
   }
-}    
+}   
+ //why did you use img for buttons? 
 
 function saveIdeaUpdates(ev) {
-  var updatedIdea = ev.target.closest('.newIdeas');
+  var updatedIdea = ev.target.closest('.new-ideas');
   var updatedIdeaTitle = updatedIdea.querySelector('.title').innerText;
   var updatedIdeaBody = updatedIdea.querySelector('.example-body').innerText;
   var updatedIdeaId = updatedIdea.id;
@@ -154,16 +138,16 @@ function saveIdeaUpdates(ev) {
 }
 
 // search box
-$('.searchBox').on('keyup',function() {
-  var ideasSearch = document.querySelectorAll('.newIdeas');
+$('.search-box').on('keyup',function() {
+  var ideasSearch = document.querySelectorAll('.new-ideas');
   $('li').each(function() {
-  $(this).attr('ideasSearch', $(this).text().toLowerCase())
+  $(this).attr('ideas-search', $(this).text().toLowerCase())
   })
   var searchTerm = $(this).val().toLowerCase();
   $('li').each(function() {
-    if($(this).filter('[ideasSearch *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+    if($(this).filter('[ideas-search *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
   $(this).show();
-  $('#ideaTemplate').hide();
+  $('#idea-template').hide();
     } else {
   $(this).hide();
   }  
