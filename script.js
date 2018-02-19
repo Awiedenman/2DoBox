@@ -1,6 +1,6 @@
 var boxTemplate = document.querySelector('#ideaTemplate');
 var saveButton = document.querySelector('.saveButton');
-var list = document.querySelector('.secondSection ul');
+var list = document.querySelector('.idea_section ul');
 var titleInput = document.querySelector('.titleInput').value;
 var bodyInput= document.querySelector('.bodyInput').value;
 var form = document.forms['inputForm'];
@@ -8,12 +8,13 @@ var ideaBoxContainer = document.querySelector('.list');
 var ideaString = localStorage.getItem('idea');
 var ideas = JSON.parse(ideaString);
 
-$('.secondSection').on('click', '.deleteButton', deleteIdea);
-$('.secondSection').on('click', '.upArrow', upVote);
-$('.secondSection').on('click', '.downArrow', downVote);
+$('.idea_section').on('click', '.deleteButton', deleteIdea);
+$('.idea_section').on('click', '.upArrow', upVote);
+$('.idea_section').on('click', '.downArrow', downVote);
 $("input[type=submit]").attr('disabled','disabled');
 $("form").change(enable);
-  
+ 
+
 if(ideas) {
   window.onload = oldIdeas();
   } else {
@@ -72,7 +73,7 @@ function cloneIdea() {
   var ideaObject = ideaStorage();
   boxCopy.id = ideaObject.id;
   var title = boxCopy.querySelector('.title');
-  var body = boxCopy.querySelector('.example-body');
+  var body = boxCopy.querySelector('.idea_body');
   title.innerText = ideaObject.title;
   body.innerText = ideaObject.body;
   list.prepend(boxCopy);
@@ -82,7 +83,7 @@ function cloneIdea() {
 function createOldIdea(idea) {
   var boxCopy = boxTemplate.cloneNode(true);
   var title = boxCopy.querySelector('.title');
-  var body = boxCopy.querySelector('.example-body');
+  var body = boxCopy.querySelector('.idea_body');
   boxCopy.id = idea.id;
   list.prepend(boxCopy);
   title.innerText = idea.title;
