@@ -8,38 +8,43 @@
     <title>IdeaBox</title>
     <link rel="icon" href="https://cdn3.iconfinder.com/data/icons/abstract-1/512/idea_E-512.png">
 </head>
-  <body>
-    <main>
-      <div role="tablist" class="wrapper">
-        <header>
-          <h1 role="heading" class="idea-header">idea<b>box</b></h1>
-    </header>
-      <form role="tab" id="input-form">
-        <input role="tab" class="title-input" type="text" placeholder="Title" required/>
-        <input role="tab" class="body-input"  type="text" placeholder="Body" required/>
-        <input role="tab" class="save-button" type = "submit" value="save"></input>
+<body>
+  <header class="header">
+    <article class="wrapper">
+      <section class="header_title">
+        <h1 class="ideaHeader">idea<span class="idea-header_text-right">box</span></h1>
+      </section>
+      <form id="inputForm" class="input_form">
+        <input class="input titleInput" type="text" placeholder="Title" required/>
+        <input class="input bodyInput"  type="text" placeholder="Body" required/>
+        <input class="input saveButton" type = "submit" value="save"></input>
       </form>
-    <section class="second-section">
-      <input type="text" placeholder="Search" class="searchBox">
-      <ul class = "list">
-        <li id ="idea-template" class="new-ideas">
-          <div class = "first-line">
-          <div contenteditable="true" class="title" id="editable-title" rows="1"></div>
-          <img role="tab" class="delete-button" src="images/delete.svg">
+    </article>
+  </header>
+  <section class="idea_section">
+    <article class="wrapper">
+      <input class="input searchBox" type="text" placeholder="Search">
+      <ul class="list">
+        <li id="ideaTemplate" class="newIdeas">
+          <section class="idea_title">
+            <section class="title" id="editableTitle" contenteditable="true" rows="1">
+            </section>
+            <img class="button deleteButton" src="images/delete.svg">
+            <br>
+          </section>
+          <section class="idea_body" contenteditable="true" rows="2"></section>
           <br>
-          </div>
-          <div contenteditable="true" class="example-body" rows="2"></div>
-          <br>
-          <div role="tablist" class="line-three">
-            <img role="tab" class="up-arrow" src="images/upvote.svg">
-            <img role="tab" class="down-arrow" src="images/downvote.svg">
-            <p role="tab" class="quality" id="quality-tag">quality: <span role="tab" class="qual-type">swill</span></p>
-           </div>
+          <section class="idea_quality">
+            <img class="button upArrow" src="images/upvote.svg">
+            <img class="button downArrow" src="images/downvote.svg">
+            <p class="quality" id="qualityTag">quality:
+              <span class="qualType">swill</span>
+            </p>
+           </section>
         </li>
       </ul>
-    </section>
-      </div>
-    </main>
+    </article>
+  </section>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
 <script type="text/javascript" src="script.js"></script>

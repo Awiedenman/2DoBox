@@ -1,20 +1,19 @@
-var boxTemplate = document.querySelector('#idea-template');
-var saveButton = document.querySelector('.save-button');
-var list = document.querySelector('.second-section ul');
-var titleInput = document.querySelector('.title-input').value;
-var bodyInput= document.querySelector('.body-input').value;
-var form = document.forms['input-form'];
-// var ideaBoxContainer = document.querySelector('.list');
+var boxTemplate = document.querySelector('#ideaTemplate');
+var saveButton = document.querySelector('.saveButton');
+var list = document.querySelector('.idea_section ul');
+var titleInput = document.querySelector('.titleInput').value;
+var bodyInput= document.querySelector('.bodyInput').value;
+var form = document.forms['inputForm'];
+var ideaBoxContainer = document.querySelector('.list');
 var ideaString = localStorage.getItem('idea');
 var ideas = JSON.parse(ideaString);
 
-$('.secondSection ul').on('submit', saveIdeaUpdates)  
-$('.secondSection').on('click', '.delete-button', deleteIdea);
-$('.secondSection').on('click', '.up-arrow', upVote);
-$('.secondSection').on('click', '.down-arrow', downVote);
-$('input[type=submit]').attr('disabled','disabled');
-$('form').change(enable);
-  
+$('.idea_section').on('click', '.deleteButton', deleteIdea);
+$('.idea_section').on('click', '.upArrow', upVote);
+$('.idea_section').on('click', '.downArrow', downVote);
+$("input[type=submit]").attr('disabled','disabled');
+$("form").change(enable);
+
 if(ideas) {
   window.onload = oldIdeas();
   } else {
@@ -52,7 +51,7 @@ function cloneIdea() {
   var ideaObject = ideaStorage();
   boxCopy.id = Date.now();
   var title = boxCopy.querySelector('.title');
-  var body = boxCopy.querySelector('.example-body');
+  var body = boxCopy.querySelector('.idea_body');
   title.innerText = ideaObject.title;
   body.innerText = ideaObject.body;
   list.prepend(boxCopy);
@@ -63,7 +62,7 @@ function cloneIdea() {
 function createOldIdea(idea) {
   var boxCopy = boxTemplate.cloneNode(true);
   var title = boxCopy.querySelector('.title');
-  var body = boxCopy.querySelector('.example-body');
+  var body = boxCopy.querySelector('.idea_body');
   boxCopy.id = idea.id;
   title.innerText = idea.title;
   body.innerText = idea.body;
