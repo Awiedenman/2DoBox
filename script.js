@@ -1,17 +1,20 @@
-var boxTemplate = document.querySelector('#ideaTemplate');
-var saveButton = $('.saveButton');
-var list = $('.idea_section ul');
-var titleInput = $('.titleInput').val();
-var bodyInput= $('.bodyInput').val();
-var form = document.forms['inputForm'];
-var ideaBoxContainer = $('.list');
+// var boxTemplate = document.querySelector('#ideaTemplate');
+// var list = $('.idea_section ul');
+// var titleInput = $('.titleInput').val();
+// var bodyInput= $('.bodyInput').val();
+// var form = document.forms['inputForm'];
+// var ideaBoxContainer = $('.list');
 var ideaString = localStorage.getItem('idea');
 var ideas = JSON.parse(ideaString);
 
-if(ideas) {
-  window.onload = oldIdeas();
-  } else {
-  ideas = [];
+persistIdea();
+
+function persistIdea() {
+  if(ideas) {
+    window.onload = oldIdeas();
+    } else {
+    ideas = [];
+  }
 }
 
 
@@ -21,7 +24,7 @@ $('.idea_section').on('click', '.deleteButton', deleteIdea);
 $('.idea_section').on('click', '.upArrow', upVote);
 $('.idea_section').on('click', '.downArrow', downVote);
 $("input[type=submit]").attr('disabled','disabled');
-$("form").change(enable);
+$(document.forms['inputForm']).change(enable);
 $('.searchBox').on('keyup', searchFilter);
 
 function searchFilter() {
@@ -42,7 +45,7 @@ function searchFilter() {
 
 function enable() {
   if ($('bodyInput') === "" && $('titleInput') === "") {
-    $("input[type=submit]").attr('disabled','disabled');
+    $("input[type=submit]").attr('disabled', true);
   } else {
     $("input[type=submit]").removeAttr('disabled');
   }
@@ -50,8 +53,8 @@ function enable() {
 
 function saveIdea(e) {
   e.preventDefault();
-  cloneIdea();
   enable();
+  cloneIdea();
   document.forms['inputForm'].reset();
 };
 
@@ -78,23 +81,23 @@ function loop() {
 };
 
 function cloneIdea() {
-  var boxCopy = boxTemplate.cloneNode(true);
+  var boxCopy = document.querySelector('#ideaTemplate').cloneNode(true);
   var ideaObject = ideaStorage();
   boxCopy.id = ideaObject.id;
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   title.innerText = ideaObject.title;
   body.innerText = ideaObject.body;
-  list.prepend(boxCopy);
+  $('.list').prepend(boxCopy);
   $("input[type=submit]").attr('disabled','disabled');
 };
 
 function createOldIdea(idea) {
-  var boxCopy = boxTemplate.cloneNode(true);
+  var boxCopy = document.querySelector('#ideaTemplate').cloneNode(true);
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   boxCopy.id = idea.id;
-  list.prepend(boxCopy);
+  $('.list').prepend(boxCopy);
   title.innerText = idea.title;
   body.innerText = idea.body;
 };
@@ -102,8 +105,8 @@ function createOldIdea(idea) {
 function ideaStorage() {
   var idea = {};
 
-  idea.title = document.querySelector('.titleInput').value;
-  idea.body = document.querySelector('.bodyInput').value;
+  idea.title = $('.titleInput').val();
+  idea.body = $('.bodyInput').val();
   idea.id = loop();
   ideas.push(idea);
   var ideaString = JSON.stringify(ideas);
