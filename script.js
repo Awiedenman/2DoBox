@@ -1,124 +1,151 @@
-var boxTemplate = document.querySelector('#ideaTemplate');
-var saveButton = document.querySelector('.saveButton');
-var list = document.querySelector('.idea_section ul');
-var titleInput = document.querySelector('.titleInput').value;
-var bodyInput= document.querySelector('.bodyInput').value;
-var form = document.forms['inputForm'];
-var ideaBoxContainer = document.querySelector('.list');
+// var boxTemplate = document.querySelector('#ideaTemplate');
+// var list = $('.idea_section ul');
+// var titleInput = $('.titleInput').val();
+// var bodyInput= $('.bodyInput').val();
+// var form = document.forms['inputForm'];
+// var ideaBoxContainer = $('.list');
 var ideaString = localStorage.getItem('idea');
 var ideas = JSON.parse(ideaString);
 
+persistIdea();
+
+function persistIdea() {
+  if(ideas) {
+    window.onload = oldIdeas();
+    } else {
+    ideas = [];
+  }
+}
+
+$('.list').on('input', saveIdeaUpdates);
+$('.saveButton').on('click', saveIdea);
 $('.idea_section').on('click', '.deleteButton', deleteIdea);
 $('.idea_section').on('click', '.upArrow', upVote);
 $('.idea_section').on('click', '.downArrow', downVote);
 $("input[type=submit]").attr('disabled','disabled');
-$("form").change(enable);
+$(document.forms['inputForm']).change(enable);
+$('.searchBox').on('keyup', searchFilter);
 
-if(ideas) {
-  window.onload = oldIdeas();
-  } else {
-  ideas = [];
-}
-
-// clone box with the user's input
-form.addEventListener('submit',function(e) {
-  e.preventDefault();
-  enable()
-  cloneIdea();
-  form.reset();
+function searchFilter() {
+ var ideasSearch = document.querySelectorAll('.newIdeas');
+  $('li').each(function() {
+  $(this).attr('ideasSearch', $(this).text().toLowerCase())
+  })
+  var searchTerm = $(this).val().toLowerCase();
+  $('li').each(function() {
+    if($(this).filter('[ideasSearch *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
+  $(this).show();
+  $('#ideaTemplate').hide();
+    } else {
+  $(this).hide();
+  }  
 });
+};
 
 function enable() {
-  if ($('body-input') === " " && $('title-input') === "") {
+  if ($('bodyInput') === "" && $('titleInput') === "") {
     $("input[type=submit]").attr('disabled', true);
   } else {
     $("input[type=submit]").removeAttr('disabled');
   }
-}
-// why did you use bracket notation and not he class on .saveButton?
+};
 
+function saveIdea(e) {
+  e.preventDefault();
+  enable();
+  cloneIdea();
+  document.forms['inputForm'].reset();
+};
 
 function oldIdeas() {
   for(i = 0; i < ideas.length; i++) {
     createOldIdea(ideas[i]);
   } 
-}
+};
 
-// formCharCode is turning our randoms number into a 8 letter string.
+function random(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+function loop() {
+  var id = '';
+  for(i = 0; i < 8; i++ ) {
+  var randomNum = random(65, 90);
+  var letter = String.fromCharCode(randomNum);
+  id = letter + id;
+  }
+  return id;
+};
 
 function cloneIdea() {
-  var boxCopy = boxTemplate.cloneNode(true);
+  var boxCopy = document.querySelector('#ideaTemplate').cloneNode(true);
   var ideaObject = ideaStorage();
-  boxCopy.id = Date.now();
+  boxCopy.id = ideaObject.id;
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   title.innerText = ideaObject.title;
   body.innerText = ideaObject.body;
-  list.prepend(boxCopy);
+  $('.list').prepend(boxCopy);
   $("input[type=submit]").attr('disabled','disabled');
-}
-// create clone of idea card. create the object using ideaStorage().
+};
 
 function createOldIdea(idea) {
-  var boxCopy = boxTemplate.cloneNode(true);
+  var boxCopy = document.querySelector('#ideaTemplate').cloneNode(true);
   var title = boxCopy.querySelector('.title');
   var body = boxCopy.querySelector('.idea_body');
   boxCopy.id = idea.id;
+  $('.list').prepend(boxCopy);
   title.innerText = idea.title;
   body.innerText = idea.body;
-  list.prepend(boxCopy);
-}
-// what is the diff between the functionality of cloneIdea and createOldIdea/
+};
 
 function ideaStorage() {
   var idea = {};
 
-  idea.title = document.querySelector('.title-input').value;
-  idea.body = document.querySelector('.body-input').value;
-  idea.id = Date.now();
+  idea.title = $('.titleInput').val();
+  idea.body = $('.bodyInput').val();
+  idea.id = loop();
   ideas.push(idea);
   var ideaString = JSON.stringify(ideas);
   localStorage.setItem('idea', ideaString);
   return idea;
-}
-// creating each individual storage itme in the giant array and 
- // pushing them into the array of ideas on creation. line 20.
-  // passing idea into create old idea to prened on page.
+};
 
 function deleteIdea(ev) {
-  var box = ev.target.closest('.new-ideas');
+  var box = ev.target.closest('.newIdeas');
   var id = box.id;
-  list.removeChild(box);
+  $(this).parent().parent().remove();
   ideas = ideas.filter(function(el) {
   return el.id !== id;
-});
+}); 
   var ideaStr = JSON.stringify(ideas);
   localStorage.setItem('idea', ideaStr);
-}
+};
 
 function upVote() {
-  var quality = $(this).parent().find('.qual-type').text();
+  var quality = $(this).parent().find('.qualType').text();
 
   if(quality === 'swill') {
     $(this).parent().find('.qualType').text('plausible');
   } else {
     $(this).parent().find('.qualType').text('genius');
   }
-}
+};
 
 function downVote() {
-  var quality = $(this).parent().find('.qual-type').text();
+  var quality = $(this).parent().find('.qualType').text();
 
   if(quality === 'genius') {
-    $(this).parent().find('.qual-type').text('plausible');
+    $(this).parent().find('.qualType').text('plausible');
   } else {
-    $(this).parent().find('.qual-type').text('swill');
+    $(this).parent().find('.qualType').text('swill');
   }
-}   
- //why did you use img for buttons? 
+};    
 
 function saveIdeaUpdates(ev) {
-  var updatedIdea = ev.target.closest('.new-ideas');
+  var updatedIdea = ev.target.closest('.newIdeas');
   var updatedIdeaTitle = updatedIdea.querySelector('.title').innerText;
   var updatedIdeaBody = updatedIdea.querySelector('.example-body').innerText;
   var updatedIdeaId = updatedIdea.id;
@@ -135,21 +162,4 @@ function saveIdeaUpdates(ev) {
 }
   var newIdeaString = JSON.stringify(existingIdeasObj);
   localStorage.setItem('idea', newIdeaString);
-}
-
-// search box
-$('.search-box').on('keyup',function() {
-  var ideasSearch = document.querySelectorAll('.new-ideas');
-  $('li').each(function() {
-  $(this).attr('ideas-search', $(this).text().toLowerCase())
-  })
-  var searchTerm = $(this).val().toLowerCase();
-  $('li').each(function() {
-    if($(this).filter('[ideas-search *= ' + searchTerm + ']').length > 0 || searchTerm.length < 1) {
-  $(this).show();
-  $('#idea-template').hide();
-    } else {
-  $(this).hide();
-  }  
-})
-})
+};
