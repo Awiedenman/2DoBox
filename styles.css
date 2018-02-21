@@ -5,6 +5,19 @@ body {
   margin:0;
 }
 
+.header {
+  background-color: #E5F3F2;
+  height: 335px;
+  margin: 0;
+  width: 100%;
+}
+
+.wrapper {
+  margin:10px auto;
+  margin-top: 0;
+  width: 55%;
+}
+
 .header_title {
   font-family: 'Roboto Slab', serif;
   margin-bottom: 20px;
@@ -12,11 +25,8 @@ body {
   width: 100%;
 }
 
-.header {
-  background-color: #E5F3F2;
-  height: 335px;
-  margin: 0;
-  width: 100%;
+.idea-header_text-right {
+  color:#6D6E71;
 }
 
 .input {
@@ -27,9 +37,6 @@ body {
   width: 53.5vw;
 }
 
-.idea-header_text-right {
-  color:#6D6E71;
-}
 
 .button {
   height: 30px;
@@ -71,12 +78,6 @@ body {
   display: flex;
   margin-bottom: 25px;
   width: 300px;
-}
-
-.wrapper {
-  margin:10px auto;
-  margin-top: 0;
-  width: 55%;
 }
 
 .ideaHeader {
@@ -150,12 +151,12 @@ body {
 .deleteButton:hover {
   content: url('images/delete-hover.svg');
 }
- 
+
 .upArrow:hover {
   content: url('images/upvote-hover.svg');
 }
 
-.downArrow:hover {
+.down-arrow:hover {
   content: url('images/downvote-hover.svg');
 }
 
