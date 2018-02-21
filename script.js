@@ -17,7 +17,6 @@ function persistIdea() {
   }
 }
 
-
 $('.list').on('input', saveIdeaUpdates);
 $('.saveButton').on('click', saveIdea);
 $('.idea_section').on('click', '.deleteButton', deleteIdea);
@@ -120,7 +119,7 @@ function deleteIdea(ev) {
   $(this).parent().parent().remove();
   ideas = ideas.filter(function(el) {
   return el.id !== id;
-});
+}); 
   var ideaStr = JSON.stringify(ideas);
   localStorage.setItem('idea', ideaStr);
 };
