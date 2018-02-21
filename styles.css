@@ -5,6 +5,19 @@ body {
   margin:0;
 }
 
+.header {
+  background-color: #E5F3F2;
+  height: 335px;
+  margin: 0;
+  width: 100%;
+}
+
+.wrapper {
+  margin:10px auto;
+  margin-top: 0;
+  width: 55%;
+}
+
 .header_title {
   font-family: 'Roboto Slab', serif;
   margin-bottom: 20px;
@@ -12,11 +25,8 @@ body {
   width: 100%;
 }
 
-.header {
-  background-color: #E5F3F2;
-  height: 335px;
-  margin: 0;
-  width: 100%;
+.idea-header_text-right {
+  color:#6D6E71;
 }
 
 .input {
@@ -27,9 +37,6 @@ body {
   width: 53.5vw;
 }
 
-.idea-header_text-right {
-  color:#6D6E71;
-}
 
 .button {
   height: 30px;
@@ -73,19 +80,13 @@ body {
   width: 300px;
 }
 
-.wrapper {
-  margin:10px auto;
-  margin-top: 0;
-  width: 55%;
-}
-
-.idea-header {
+.ideaHeader {
   color: #00A79D;
   font-size: 70px;
   margin: 0;
 }
 
-.title-input {
+.titleInput {
   outline: none;
 }
 
@@ -98,13 +99,13 @@ body {
   margin:0;
 }
 
-.body-input {
+.bodyInput {
   margin-top: 20px;
   margin-bottom: 20px;
   outline: none;
 }
 
-.save-button {
+.saveButton {
   background-color: #00A79D;
   color: white;
   font-size: 25px;
@@ -112,12 +113,12 @@ body {
   width: 100%;
 }
 
-.save-button:hover {
+.saveButton:hover {
   background-color: #045E55;
   outline: none;
 }
 
-.save-button:disabled {
+.saveButton:disabled {
   background-color: #8e8d8d;
   border: 2px solid #bdbfbf;
   color: #b1a9a9;
@@ -130,24 +131,24 @@ body {
   margin-top: 75px;
 }
 
-.search-box {
+.searchBox {
   margin-bottom: 15px;
   outline: none;
 }
 
-.new-ideas {
+.newIdeas {
   border-bottom: #D1D3D4 solid 3px;
   margin-top: 30px;
 }
 
-.delete-button {
+.deleteButton {
   display: inline-block;
   flex: 5%;
   float: right;
   z-index: 5;
 }
 
-.delete-button:hover {
+.deleteButton:hover {
   content: url('images/delete-hover.svg');
 }
 
@@ -171,7 +172,7 @@ body {
   padding-right: 20px;
 }
 
-.down-arrow {
+.downArrow {
   display: inline-block;
   margin-right: 20px;
 }
