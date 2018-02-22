@@ -130,6 +130,36 @@ body {
   height: 100%;
   margin-top: 75px;
 }
+.none_button {
+  height: 50px;
+  width: 10%;
+  border: 1px gray solid;
+  margin: 5%;
+}
+.low_button {
+  height: 50px;
+  width: 10%;
+  border: 1px gray solid;
+  margin: 5%;
+}
+.normal_button {
+  height: 50px;
+  width: 10%;
+  border: 1px gray solid;
+  margin: 5%;
+}
+.high_button {
+  height: 50px;
+  width: 10%;
+  border: 1px gray solid;
+  margin: 5%;
+}
+.critical_button {
+  height: 50px;
+  width: 10%;
+  border: 1px gray solid;
+  margin: 5%;
+}
 
 .searchBox {
   margin-bottom: 15px;
@@ -137,6 +167,7 @@ body {
 }
 
 .newIdeas {
+  position: relative;
   border-bottom: #D1D3D4 solid 3px;
   margin-top: 30px;
 }
@@ -156,7 +187,7 @@ body {
   content: url('images/upvote-hover.svg');
 }
 
-.down-arrow:hover {
+.downArrow:hover {
   content: url('images/downvote-hover.svg');
 }
 
@@ -175,6 +206,31 @@ body {
 .downArrow {
   display: inline-block;
   margin-right: 20px;
+}
+
+.show-completed_button {
+  height: 40px;
+  width: 80%;
+  border: 1px gray solid;
+  margin: 10px 40px;
+}
+
+.completed {
+  opacity: .4;
+  background-color: gray;
+}
+
+.completed_button {
+  position: absolute;
+  right: 23px;
+  height: 30px;
+  width: 80px;
+  background-color: #00A79D;
+  opacity: .5;
+}
+
+.completed_button:hover {
+  opacity: 1;
 }
 
 .hidden {
