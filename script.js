@@ -3,7 +3,6 @@ $(function() {
 
   init();
 
-
   function init() {
     persistIdea();
     $('.list').on('input', saveIdeaUpdates);
@@ -129,7 +128,6 @@ $(function() {
     var ideas = getIdeas();
     var box = e.target.closest('.newIdeas');
     var id = box.id;
-    // console.log(box.id);
     $(this).parent().parent().remove();
     ideas = ideas.filter(function(idea) {
       return idea.id !== id;
@@ -148,14 +146,6 @@ $(function() {
     });
     ideas[ideaIndex].completed = !ideas[ideaIndex].completed;
     sendToStorage(ideas);
-
-
-        // ideas[ideaIndex].quality = qualityArray[index + 1];
-    // } else if ( eventTarget.hasClass('downArrow') && index > 0){
-    //     eventTarget.siblings('p').find('.qualType').text(qualityArray[index - 1]);
-    //     ideas[ideaIndex].quality = qualityArray[index - 1];
-    // }
-    // if ($(this))
   }
 
   function sendToStorage(ideas) {
@@ -167,7 +157,7 @@ $(function() {
     eventTarget = $(this);
     var ideas = getIdeas();
     var quality = $(this).parent().find('.qualType').text();
-    qualityArray = ['none', 'low', 'normal', 'high', 'critical', 'really cool']
+    qualityArray = ['none', 'low', 'normal', 'high', 'critical']
     cardId = $(this).parent().parent().attr('id');
     var index = qualityArray.indexOf(quality);
     changeValue(eventTarget, quality, qualityArray, index, ideas, cardId)
@@ -188,6 +178,7 @@ $(function() {
   }   
 
   function saveIdeaUpdates(ev) {
+    console.log($(this))
     var updatedIdea = ev.target.closest('.newIdeas');
     var updatedIdeaTitle = updatedIdea.querySelector('.title').innerText;
     var updatedIdeaBody = updatedIdea.querySelector('.idea_body').innerText;

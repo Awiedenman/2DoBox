@@ -1,3 +1,7 @@
+* box-content {
+  box-sizing: border-box;
+}
+
 html,
 body {
   font-family: 'Open Sans', sans-serif;
@@ -242,9 +246,18 @@ body {
   main {
     height: 294px;
   }  
+  
+  .bodyInput,
+  .titleInput {
+    width: 97%;
+  }
+  .q-button {
+    width: 50px;
+    font-size: 8px;
+  }
 
-  input {
-    width: 98%;
+  .searchBox {
+    width: 97%;
   }
 
   .hidden {
@@ -269,6 +282,7 @@ body {
   }
 
   .saveButton {
+    width: 100%;
     padding: 5px;
   }
 
@@ -280,12 +294,13 @@ body {
     width: 240px;
   }
 
-  /* mobile
-  textarea {
-    border:none;
-    font-family: 'Open Sans', sans-serif;
-    outline: none;
-    resize: none;
-  }*/
+  .show-completed_button {
+    margin-bottom: 20px;
+  }
+
+  .quality { 
+    font-size: 11px;
+    padding-top: 7px;
+  } 
 
 }
